@@ -11,6 +11,14 @@ let lastScroll = 0;
 
 triggerMenu.addEventListener("click", () => {
     body.classList.toggle("menu-open");
+    if(document.body.classList.contains('menu-open')) {
+        enable();
+        console.log('Скролу пизда');
+    } else {
+        disable();
+        console.log('Скрол попиздил работать');
+    }
+    console.log('open');
 });
 
 lottieWrapper.addEventListener("click", (e) => {
@@ -30,7 +38,6 @@ window.addEventListener("scroll", () => {
         // down
         body.classList.remove(scrollUp);
         body.classList.add(scrollDown);
-        lottiePlayer.play();
     } else if (
         currentScroll < lastScroll &&
         body.classList.contains(scrollDown)
@@ -38,7 +45,26 @@ window.addEventListener("scroll", () => {
         // up
         body.classList.remove(scrollDown);
         body.classList.add(scrollUp);
-        lottiePlayer.stop();
     }
     lastScroll = currentScroll;
 });
+
+
+// src/utils/scroll-lock.js
+const $body = document.querySelector('body');
+let scrollPosition = 0;
+
+function enable() {
+    scrollPosition = window.pageYOffset;
+    $body.style.overflow = 'hidden';
+    $body.style.position = 'fixed';
+    $body.style.top = `-${scrollPosition}px`;
+    $body.style.width = '100%';
+}
+function disable() {
+    $body.style.removeProperty('overflow');
+    $body.style.removeProperty('position');
+    $body.style.removeProperty('top');
+    $body.style.removeProperty('width');
+    window.scrollTo(0, scrollPosition);
+}
