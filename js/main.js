@@ -56,7 +56,7 @@ let scrollPosition = 0;
 
 function enable() {
     scrollPosition = window.pageYOffset;
-    $body.style.overflow = 'hidden';
+    $body.style.overflow = 'scroll';
     $body.style.position = 'fixed';
     $body.style.top = `-${scrollPosition}px`;
     $body.style.width = '100%';
